@@ -1,0 +1,7 @@
+C:\Users\mat\Documents\Visual Studio 2017\Projects\AtCoderStudy\AtCoderStudy\bin\Debug\AtCoderStudy.exe.config
+C:\Users\mat\Documents\Visual Studio 2017\Projects\AtCoderStudy\AtCoderStudy\bin\Debug\AtCoderStudy.exe
+C:\Users\mat\Documents\Visual Studio 2017\Projects\AtCoderStudy\AtCoderStudy\bin\Debug\AtCoderStudy.pdb
+C:\Users\mat\Documents\Visual Studio 2017\Projects\AtCoderStudy\AtCoderStudy\obj\Debug\AtCoderStudy.csprojResolveAssemblyReference.cache
+C:\Users\mat\Documents\Visual Studio 2017\Projects\AtCoderStudy\AtCoderStudy\obj\Debug\AtCoderStudy.csproj.CoreCompileInputs.cache
+C:\Users\mat\Documents\Visual Studio 2017\Projects\AtCoderStudy\AtCoderStudy\obj\Debug\AtCoderStudy.exe
+C:\Users\mat\Documents\Visual Studio 2017\Projects\AtCoderStudy\AtCoderStudy\obj\Debug\AtCoderStudy.pdb
