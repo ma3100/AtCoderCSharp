@@ -6,42 +6,46 @@ class Program
 {
 	static void Main(string[] args)
 	{
-		// 文字列の入力
-		var s = Console.ReadLine();
-		var targetList = new List<string>() { "dream", "dreamer", "erase", "eraser" };
+		// 整数の入力
+		int n = int.Parse(Console.ReadLine());
+		var InputValueList = new List<InputValue>();
+		double answer = 0;
 
-		// 逆さから読むとかぶらない・・・
-		s = string.Join("", s.Reverse());
-		targetList = targetList.Select(x => string.Join("", x.Reverse())).ToList();
-		var hitFlag = true;
-
-		for (int i = 0; i < s.Length;)
+		for (int i = 1; i <= n; i++)
 		{
-			var flag2 = false;
-			foreach (var word in targetList)
+			// スペース区切りの整数の入力
+			var inputArray = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+			InputValueList.Add(new InputValue(inputArray[0], inputArray[1]));
+		}
+
+		for (int i = 0; i < n; i++)
+		{
+			foreach (var inputValue in InputValueList.Skip(i + 1))
 			{
-				if (s.Length - i < word.Length)
-					continue;
-				else if (s.Substring(i, word.Length) == word)
-				{
-					i += word.Length;
-					flag2 = true;
-					break;
-				}
-			}
-			if (!flag2)
-			{
-				hitFlag = false;
-				break;
+				var result = getResult(InputValueList[i], inputValue);
+				if (result > answer)
+					answer = result;
 			}
 		}
 
-		if (hitFlag)
-			Console.WriteLine("YES");
-		else
-			Console.WriteLine("NO");
+		Console.WriteLine(answer.ToString("F6"));
+	}
 
+	private static double getResult(InputValue first, InputValue second)
+	{
+		return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.y - second.y), 2));
+	}
 
+	public class InputValue
+	{
+		public int x { get; }
+		public int y { get; }
+
+		public InputValue(int x, int y)
+		{
+			this.x = x;
+			this.y = y;
+		}
 	}
 
 }
