@@ -4,48 +4,61 @@ using System.Linq;
 
 class Program
 {
+	static List<string> bitList = new List<string>();
+	static int inputLength = 0;
+	static string str = "";
+	public static double ans = 0;
+
 	static void Main(string[] args)
 	{
-		// 整数の入力
-		int n = int.Parse(Console.ReadLine());
-		var InputValueList = new List<InputValue>();
-		double answer = 0;
+		// 文字列の入力
+		str = Console.ReadLine();
+		inputLength = str.Length;
 
-		for (int i = 1; i <= n; i++)
+		makeBitList(0, "");
+
+		foreach(var bit in bitList)
 		{
-			// スペース区切りの整数の入力
-			var inputArray = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-			InputValueList.Add(new InputValue(inputArray[0], inputArray[1]));
+			keisan(bit);
 		}
 
-		for (int i = 0; i < n; i++)
+
+	}
+
+	private static void makeBitList(int count, string bit)
+	{
+		if (count == inputLength-1)
 		{
-			foreach (var inputValue in InputValueList.Skip(i + 1))
+			bitList.Add(bit);
+		}
+		else
+		{
+			count += 1;
+			makeBitList(count, bit + "0");
+			makeBitList(count, bit + "1");
+		}
+	}
+
+	public static void keisan(string s)
+	{
+		string str2 = "";
+		char[] nums = str.ToCharArray();
+		char[] c = s.ToCharArray();
+
+		str2 += nums[0].ToString();
+
+		for (int i = 0; i < c.Length; i++)
+		{
+			if (c[i] == '1')
 			{
-				var result = getResult(InputValueList[i], inputValue);
-				if (result > answer)
-					answer = result;
+
+				ans += double.Parse(str2);
+				str2 = "";
 			}
+			str2 += nums[i + 1].ToString();
 		}
 
-		Console.WriteLine(answer.ToString("F6"));
-	}
-
-	private static double getResult(InputValue first, InputValue second)
-	{
-		return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.y - second.y), 2));
-	}
-
-	public class InputValue
-	{
-		public int x { get; }
-		public int y { get; }
-
-		public InputValue(int x, int y)
-		{
-			this.x = x;
-			this.y = y;
-		}
+		ans += double.Parse(str2);
 	}
 
 }

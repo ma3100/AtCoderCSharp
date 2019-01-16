@@ -15,16 +15,16 @@ namespace AtCoderStudy.FirstAnt
 			var InputValueList = new List<InputValue>();
 			double answer = 0;
 
-			for(int i= 1; i <= n;i++)
+			for (int i = 1; i <= n; i++)
 			{
 				// スペース区切りの整数の入力
 				var inputArray = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-				InputValueList.Add(new InputValue(inputArray[0],inputArray[1]));
+				InputValueList.Add(new InputValue(inputArray[0], inputArray[1]));
 			}
 
-			for(int i = 1;i < n; i++)
+			for (int i = 0; i < n; i++)
 			{
-				foreach(var inputValue in InputValueList.Skip(i))
+				foreach (var inputValue in InputValueList.Skip(i + 1))
 				{
 					var result = getResult(InputValueList[i], inputValue);
 					if (result > answer)
@@ -32,20 +32,20 @@ namespace AtCoderStudy.FirstAnt
 				}
 			}
 
-			Console.WriteLine(answer);
+			Console.WriteLine(answer.ToString("F6"));
 		}
 
-		private double getResult(InputValue first,InputValue second)
+		private static double getResult(InputValue first, InputValue second)
 		{
 			return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.y - second.y), 2));
 		}
 
 		public class InputValue
 		{
-			public int x { get;  }
-			public int y { get;  }
+			public int x { get; }
+			public int y { get; }
 
-			public InputValue(int x,int y)
+			public InputValue(int x, int y)
 			{
 				this.x = x;
 				this.y = y;
