@@ -1,64 +1,84 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 class Program
 {
-	static List<string> bitList = new List<string>();
-	static int inputLength = 0;
-	static string str = "";
-	public static double ans = 0;
+	static int H = 0;
+	static int W = 0;
+	static int startX = 0;
+	static  int startY = 0;
+	static new char[,] stageArray;
+	static bool goalFlag = false;
 
 	static void Main(string[] args)
 	{
-		// 文字列の入力
-		str = Console.ReadLine();
-		inputLength = str.Length;
+		// スペース区切りの整数の入力
+		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+		H = input[0];
+		W = input[1];
+		stageArray = new char[H, W];
 
-		makeBitList(0, "");
 
-		foreach(var bit in bitList)
+		// 迷路の作成
+		for (int x = 0; x < H; x++)
 		{
-			keisan(bit);
-		}
-
-
-	}
-
-	private static void makeBitList(int count, string bit)
-	{
-		if (count == inputLength-1)
-		{
-			bitList.Add(bit);
-		}
-		else
-		{
-			count += 1;
-			makeBitList(count, bit + "0");
-			makeBitList(count, bit + "1");
-		}
-	}
-
-	public static void keisan(string s)
-	{
-		string str2 = "";
-		char[] nums = str.ToCharArray();
-		char[] c = s.ToCharArray();
-
-		str2 += nums[0].ToString();
-
-		for (int i = 0; i < c.Length; i++)
-		{
-			if (c[i] == '1')
+			// 迷路の入力
+			var raw = Console.ReadLine();
+			for (int y = 0; y < W; y++)
 			{
-
-				ans += double.Parse(str2);
-				str2 = "";
+				stageArray[x, y] = raw[y];
+				// スタート地点の記憶
+				if (raw[y] == 's')
+				{
+					startX = x;
+					startY = y;
+				}
 			}
-			str2 += nums[i + 1].ToString();
 		}
+		SearchRoad();
 
-		ans += double.Parse(str2);
+		if (goalFlag)
+			Console.WriteLine("Yes");
+		else
+			Console.WriteLine("No");
 	}
+
+	private static void SearchRoad()
+	{
+		CheckRoad(startX - 1, startY);
+		CheckRoad(startX + 1, startY);
+		CheckRoad(startX, startY - 1);
+		CheckRoad(startX, startY + 1);
+
+	}
+
+	private static void CheckRoad(int x, int y)
+	{
+		// 範囲外
+		if (x >= H || y >= W || x < 0 || y < 0)
+		{
+			return;
+		}
+		// 壁または既に通った道判定
+		if (stageArray[x, y] == '#' || stageArray[x, y] == 'e' || stageArray[x, y] == 's')
+		{
+			return;
+		}
+		// goal
+		if (stageArray[x, y] == 'g')
+		{
+			goalFlag = true;
+			return;
+		}
+		if (stageArray[x, y] == '.')
+		{
+			stageArray[x, y] = 'e';
+			CheckRoad(x - 1, y);
+			CheckRoad(x + 1, y);
+			CheckRoad(x, y - 1);
+			CheckRoad(x, y + 1);
+		}
+	}
+
 
 }
