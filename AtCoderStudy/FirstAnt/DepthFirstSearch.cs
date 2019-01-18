@@ -48,18 +48,22 @@ namespace AtCoderStudy.FirstAnt
 
 		private void SearchRoad()
 		{
-			CheckRoad(startX, startY);
+			CheckRoad(startX - 1, startY);
+			CheckRoad(startX + 1, startY);
+			CheckRoad(startX, startY - 1);
+			CheckRoad(startX, startY + 1);
+
 		}
 
-		private void CheckRoad(int x,int y)
+		private void CheckRoad(int x, int y)
 		{
 			// 範囲外
-			if(x > H || y > W || x < 0 || y < 0)
+			if (x >= H || y >= W || x < 0 || y < 0)
 			{
 				return;
 			}
 			// 壁または既に通った道判定
-			if (stageArray[x,y] == '#' || stageArray[x, y] == 'e' || stageArray[x, y] == 's')
+			if (stageArray[x, y] == '#' || stageArray[x, y] == 'e' || stageArray[x, y] == 's')
 			{
 				return;
 			}
@@ -69,10 +73,10 @@ namespace AtCoderStudy.FirstAnt
 				goalFlag = true;
 				return;
 			}
-			if(stageArray[x, y] ==　'.')
+			if (stageArray[x, y] == '.')
 			{
 				stageArray[x, y] = 'e';
-				CheckRoad(x -1,y);
+				CheckRoad(x - 1, y);
 				CheckRoad(x + 1, y);
 				CheckRoad(x, y - 1);
 				CheckRoad(x, y + 1);

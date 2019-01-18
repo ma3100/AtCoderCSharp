@@ -1,84 +1,71 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
+using static System.Console;
+using static System.Convert;
+using static System.Math;
 
 class Program
 {
-	static int H = 0;
-	static int W = 0;
-	static int startX = 0;
-	static  int startY = 0;
-	static new char[,] stageArray;
-	static bool goalFlag = false;
+	class P
+	{
+		public int index;
+		public List<int> ad;
+
+		public P(int index)
+		{
+			this.index = index;
+			ad = new List<int>();
+		}
+	}
+
+	static P[] pArray;
 
 	static void Main(string[] args)
 	{
-		// スペース区切りの整数の入力
-		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-		H = input[0];
-		W = input[1];
-		stageArray = new char[H, W];
-
-
-		// 迷路の作成
-		for (int x = 0; x < H; x++)
+		var nm = Array.ConvertAll(ReadLine().Split(' '), int.Parse);
+		pArray = new P[nm[0]];
+		var set = new HashSet<int>();
+		// 各拠点間の関連性をpsにセットする。
+		for (var i = 0; i < nm[1]; i++)
 		{
-			// 迷路の入力
-			var raw = Console.ReadLine();
-			for (int y = 0; y < W; y++)
+			var ab = Array.ConvertAll(ReadLine().Split(' '), int.Parse);
+			for (var j = 0; j < 2; j++)
 			{
-				stageArray[x, y] = raw[y];
-				// スタート地点の記憶
-				if (raw[y] == 's')
+				if (set.Contains(ab[j]))
+					pArray[ab[j] - 1].ad.Add(ab[1 - j] - 1);
+				else
 				{
-					startX = x;
-					startY = y;
+					set.Add(ab[j]);
+					// 1番地点を配列の0番目に入れる等、1ずつズレる。
+					pArray[ab[j] - 1] = new P(ab[j] - 1);
+					// 要素が2つなので、残りの片方の場所と関連性を持たせる
+					pArray[ab[j] - 1].ad.Add(ab[1 - j] - 1);
 				}
 			}
 		}
-		SearchRoad();
+		set.Clear();
+		var result = 0;
 
-		if (goalFlag)
-			Console.WriteLine("Yes");
-		else
-			Console.WriteLine("No");
+		// 始点(0)から何通りあるかだけ調べれば良いので一回だけ呼ぶ
+		answer(ref result, set, 0);
+		WriteLine(result);
 	}
 
-	private static void SearchRoad()
+	private static void answer(ref int result, HashSet<int> set, int i)
 	{
-		CheckRoad(startX - 1, startY);
-		CheckRoad(startX + 1, startY);
-		CheckRoad(startX, startY - 1);
-		CheckRoad(startX, startY + 1);
+		// Setで関連性のある物を繋げ続ける。
+		set.Add(i);
+		for (var j = 0; j < pArray[i].ad.Count; j++)
+		{
+			// 関連性のある地点がまだセットされてなければ再帰
+			if (!set.Contains(pArray[i].ad[j]))
+				answer(ref result, set, pArray[i].ad[j]);
+		}
 
+		// 繋ぎ続けた結果、全体の大きさと同じになった場合正解
+		if (set.Count == pArray.Length) result++;
+		set.Remove(i);
 	}
-
-	private static void CheckRoad(int x, int y)
-	{
-		// 範囲外
-		if (x >= H || y >= W || x < 0 || y < 0)
-		{
-			return;
-		}
-		// 壁または既に通った道判定
-		if (stageArray[x, y] == '#' || stageArray[x, y] == 'e' || stageArray[x, y] == 's')
-		{
-			return;
-		}
-		// goal
-		if (stageArray[x, y] == 'g')
-		{
-			goalFlag = true;
-			return;
-		}
-		if (stageArray[x, y] == '.')
-		{
-			stageArray[x, y] = 'e';
-			CheckRoad(x - 1, y);
-			CheckRoad(x + 1, y);
-			CheckRoad(x, y - 1);
-			CheckRoad(x, y + 1);
-		}
-	}
-
-
 }
