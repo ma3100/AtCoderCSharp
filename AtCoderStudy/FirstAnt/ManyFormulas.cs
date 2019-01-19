@@ -20,6 +20,8 @@ namespace AtCoderStudy.FirstAnt
 			str = Console.ReadLine();
 			inputLength = str.Length;
 
+			
+
 			makeBitList(0, "");
 			var answer = bitList.Select(x => int.Parse(x) * int.Parse(str)).Sum();
 		}

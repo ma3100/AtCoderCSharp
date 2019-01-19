@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="FirstAnt\DepthFirstSearch.cs" />
     <Compile Include="FirstAnt\ManyFormulas.cs" />
+    <Compile Include="FirstAnt\OneStrokePath.cs" />
+    <Compile Include="FirstAnt\Otsuri.cs" />
     <Compile Include="FirstAnt\TheLongestDistance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
