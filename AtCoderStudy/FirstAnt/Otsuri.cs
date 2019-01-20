@@ -19,6 +19,7 @@ namespace AtCoderStudy.FirstAnt
 			CheckCoinNum(100, ref otusri, ref num);
 			CheckCoinNum(50, ref otusri, ref num);
 			CheckCoinNum(10, ref otusri, ref num);
+			CheckCoinNum(5, ref otusri, ref num);
 			CheckCoinNum(1, ref otusri, ref num);
 
 			Console.WriteLine(num);

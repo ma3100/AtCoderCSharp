@@ -1,30 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 class Program
 {
 	static void Main(string[] args)
 	{
-		// 金額の入力
-		var money = int.Parse(Console.ReadLine());
-		var otusri = 1000 - money;
-		var num = 0;
+		var targetList = new List<string>() { "tokyo", "kyoto" };
+		targetList = targetList.Select(x => string.Join("", x.Reverse())).ToList();
 
-		CheckCoinNum(500, ref otusri, ref num);
-		CheckCoinNum(100, ref otusri, ref num);
-		CheckCoinNum(50, ref otusri, ref num);
-		CheckCoinNum(10, ref otusri, ref num);
-		CheckCoinNum(5, ref otusri, ref num);
-		CheckCoinNum(1, ref otusri, ref num);
 
-		Console.WriteLine(num);
-	}
-
-	private static void CheckCoinNum(int coinValue, ref int otusri, ref int num)
-	{
-		while (otusri >= coinValue)
+		// 入力回数
+		var t = int.Parse(Console.ReadLine());
+		for (int i = 0; i < t; i++)
 		{
-			otusri = otusri - coinValue;
-			num++;
+			// 文字列の入力
+			var s = Console.ReadLine();
+			s = string.Join("", s.Reverse());
+			var count = 0;
+
+			foreach (var target in targetList)
+			{
+				var index = s.IndexOf(target);
+				while (index > -1)
+				{
+					count++;
+					s = s.Remove(index, 5);
+					index = s.IndexOf(target);
+				}
+			}
+
+			Console.WriteLine(count);
 		}
+
 	}
+
 }
