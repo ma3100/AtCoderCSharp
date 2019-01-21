@@ -6,33 +6,35 @@ class Program
 {
 	static void Main(string[] args)
 	{
-		var targetList = new List<string>() { "tokyo", "kyoto" };
-		targetList = targetList.Select(x => string.Join("", x.Reverse())).ToList();
+		string S0 = Console.ReadLine();
+		string T = Console.ReadLine();
 
-
-		// 入力回数
-		var t = int.Parse(Console.ReadLine());
-		for (int i = 0; i < t; i++)
+		string S = "";
+		if (T.Length > S0.Length) S = "UNRESTORABLE";
+		if (S == "")
 		{
-			// 文字列の入力
-			var s = Console.ReadLine();
-			s = string.Join("", s.Reverse());
-			var count = 0;
-
-			foreach (var target in targetList)
+			for (int i = 0; i <= S0.Length - T.Length; i++)
 			{
-				var index = s.IndexOf(target);
-				while (index > -1)
+				bool match = true;
+				for (int j = 0; j < T.Length; j++)
 				{
-					count++;
-					s = s.Remove(index, 5);
-					index = s.IndexOf(target);
+					if (!(S0[i + j] == T[j] || S0[i + j] == '?'))
+					{
+						match = false;
+						break;
+					}
+				}
+				if (match)
+				{
+					S = S0.Substring(0, i) + T + S0.Substring(i + T.Length);
+					S = S.Replace('?', 'a');
 				}
 			}
-
-			Console.WriteLine(count);
 		}
-
+		if (S == "") S = "UNRESTORABLE";
+		Console.WriteLine(S);
 	}
 
 }
+
+
