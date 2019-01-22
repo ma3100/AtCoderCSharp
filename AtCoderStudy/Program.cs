@@ -6,33 +6,20 @@ class Program
 {
 	static void Main(string[] args)
 	{
-		string S0 = Console.ReadLine();
-		string T = Console.ReadLine();
+		// スペース区切りの整数の入力
+		var input = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
+		var X = input[0];
+		var Y = input[1];
+		var count = 0;
 
-		string S = "";
-		if (T.Length > S0.Length) S = "UNRESTORABLE";
-		if (S == "")
+		while (Y >= X)
 		{
-			for (int i = 0; i <= S0.Length - T.Length; i++)
-			{
-				bool match = true;
-				for (int j = 0; j < T.Length; j++)
-				{
-					if (!(S0[i + j] == T[j] || S0[i + j] == '?'))
-					{
-						match = false;
-						break;
-					}
-				}
-				if (match)
-				{
-					S = S0.Substring(0, i) + T + S0.Substring(i + T.Length);
-					S = S.Replace('?', 'a');
-				}
-			}
+			count++;
+			X = X * 2;
 		}
-		if (S == "") S = "UNRESTORABLE";
-		Console.WriteLine(S);
+
+		Console.WriteLine(count);
+
 	}
 
 }

@@ -48,6 +48,7 @@
     <Compile Include="FirstAnt\DepthFirstSearch.cs" />
     <Compile Include="FirstAnt\DubiousDocument2.cs" />
     <Compile Include="FirstAnt\ManyFormulas.cs" />
+    <Compile Include="FirstAnt\MultipleGift.cs" />
     <Compile Include="FirstAnt\OneStrokePath.cs" />
     <Compile Include="FirstAnt\Otsuri.cs" />
     <Compile Include="FirstAnt\TheLongestDistance.cs" />
