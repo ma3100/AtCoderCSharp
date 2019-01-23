@@ -51,6 +51,7 @@
     <Compile Include="FirstAnt\MultipleGift.cs" />
     <Compile Include="FirstAnt\OneStrokePath.cs" />
     <Compile Include="FirstAnt\Otsuri.cs" />
+    <Compile Include="FirstAnt\PartialSum.cs" />
     <Compile Include="FirstAnt\TheLongestDistance.cs" />
     <Compile Include="FirstAnt\Tokyo.cs" />
     <Compile Include="Program.cs" />

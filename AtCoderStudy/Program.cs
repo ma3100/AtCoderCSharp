@@ -4,22 +4,53 @@ using System.Linq;
 
 class Program
 {
+	static List<string> bitList = new List<string>();
+	static int inputLength = 0;
+	static List<int> answerList = new List<int>();
+
+
 	static void Main(string[] args)
 	{
+		inputLength = int.Parse(Console.ReadLine());
 		// スペース区切りの整数の入力
-		var input = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
-		var X = input[0];
-		var Y = input[1];
-		var count = 0;
+		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
 
-		while (Y >= X)
+		// ビットリストを作る
+		makeBitList(0, "");
+		foreach (var bit in bitList)
 		{
-			count++;
-			X = X * 2;
+			var answer = getAnswer(bit, input);
+			answerList.Add(answer);
 		}
+		Console.WriteLine(answerList.Distinct().Count());
+	}
 
-		Console.WriteLine(count);
+	private static int getAnswer(string bit, int[] input)
+	{
+		var answer = 0;
 
+		for (int i = 0; i < bit.Length; i++)
+		{
+			if (bit[i] == '1')
+			{
+				answer += input[i];
+			}
+		}
+		return answer;
+	}
+
+	private static void makeBitList(int count, string bit)
+	{
+		if (count == inputLength)
+		{
+			bitList.Add(bit);
+		}
+		else
+		{
+			count += 1;
+			makeBitList(count, bit + "0");
+			makeBitList(count, bit + "1");
+		}
 	}
 
 }
