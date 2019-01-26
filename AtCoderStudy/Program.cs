@@ -5,29 +5,33 @@ using System.Linq;
 class Program
 {
 
-	static void Main()
+	const int A = 1000000007;
+	static void Main(string[] args)
 	{
-		int N = int.Parse(Console.ReadLine());
-		var cardList = new int[N];
-		for (int i = 0; i < N; i++)
-		{
-			cardList[i] = int.Parse(Console.ReadLine());
-		}
+		var input = Console.ReadLine().Split(' ');
+		var N = int.Parse(input[0]);
+		var S = int.Parse(input[1]);
+		var K = int.Parse(input[2]);
 
-		var count = 0;
-		var targetValue = cardList[0];
-		for (int i = 1; i < N; i++)
+		int m = S - (N - 1) * N * K / 2;
+		int c = 0;
+		if (m == 0) { c = 1; }
+		else
 		{
-			if (cardList[i] < targetValue)
+			for (var l = 1; l <= N && l <= m; l++)
 			{
-				count++;
-			}
-			else
-			{
-				targetValue = cardList[i];
+				long[] t = new long[m - l + 2];
+				for (var i = 0; i < t.Length; i++) { t[i] = 1; }
+				for (var i = 2; i <= l; i++)
+				{
+					for (var j = i; j <= m - l; j++)
+					{
+						t[j] = (t[j] + t[j - i]) % A;
+					}
+				}
+				c = (int)((c + t[m - l]) % A);
 			}
 		}
-
-		Console.WriteLine(count);
+		Console.WriteLine(c);
 	}
 }
