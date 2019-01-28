@@ -5,98 +5,107 @@ using System.Linq;
 class Program
 {
 
-	static long mod = 1000000007;
+	static char[,] A = new char[5, 5]; // 盤面の情報
+	static int[,] b = new int[5, 5];// 得点の情報1
+	static int[,] c = new int[5, 5]; // 得点の情報2
 
 	public static void Main(string[] args)
 	{
-		// スペース区切りの整数の入力
-		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-		var N = input[0];
-		var M = input[1];
-
-		int[] indexes = index(M);
-		long ans = 1;
-		if (M != 1)
+		// 入力
+		int sum = 0; // 全体の合計
+		for (int i = 0; i < 2; i++)
 		{
-			for (int i = 0; i < indexes.Count(); i++)
+			// スペース区切りの整数の入力
+			var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+			for (int j = 0; j < 3; j++)
 			{
-				ans *= nHk(indexes[i] + N - 1, N - 1);
+				b[i, j] = input[j];
+				sum += b[i, j];
 			}
 		}
-		Console.WriteLine(ans % mod);
+		for (int i = 0; i < 3; i++)
+		{
+			// スペース区切りの整数の入力
+			var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+			for (int j = 0; j < 2; j++)
+			{
+				c[i, j] = input[j];
+				sum += c[i, j];
+			}
+		}
+
+		// 盤面を全て'*'で初期化
+		for (int x = 0; x < 5; x++)
+		{
+			for (int y = 0; y < 5; y++)
+			{
+				A[x, y] = '*';
+			}
+		}
+
+		int answer = dfs(0); // 直大の得点が返ってくる
+		Console.WriteLine(answer);
+		Console.WriteLine(sum - answer);
 	}
 
-	static int[] index(int n)
+	// 盤面を全通りに埋めるDFS
+	static int dfs(int turn)
 	{
-		var list = new List<int>();
-		if (n == 1)
+		if (turn == 9) return calc();
+
+		if (turn % 2 == 0)
 		{
-			list.Add(1);
+			int Max = -1;
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					if (A[i, j] != '*') continue;
+					A[i, j] = 'o'; // 盤面に'o'を打つ
+					Max = Math.Max(Max, dfs(turn + 1));
+					A[i, j] = '*'; // 盤面を元に戻す
+				}
+			}
+			return Max;
 		}
 		else
 		{
-			int i = 2;
-			int temp = 0;
-			while (n != 1)
+			int Min = 1;
+			for (int i = 0; i < 3; i++)
 			{
-				if (n % i == 0)
+				for (int j = 0; j < 3; j++)
 				{
-					temp++;
-					n /= i;
-				}
-				else
-				{
-					if (temp != 0)
-					{
-						list.Add(temp);
-					}
-					temp = 0;
-					i++;
+					if (A[i, j] != '*') continue;
+					A[i, j] = 'x'; // 盤面に'x'を打つ
+					Min = Math.Min(Min, dfs(turn + 1));
+					A[i, j] = '*'; // 盤面を元に戻す
 				}
 			}
-			list.Add(temp);
+			return Min;
 		}
-		int[] res = list.ToArray();
-		return res;
 	}
 
-	static long nHk(int n, int r)
+	// 盤面を埋め終わったとき、直大の得点を返す
+	static int calc()
 	{
-		if (n < 0 || r < 0 || r > n) throw new ArgumentException("不正な引数です．");
-
-		if (n - r < r) r = n - r;
-		if (r == 0) return 1;
-		if (r == 1) return n;
-
-		int[] numerator = new int[r];
-		int[] denominator = new int[r];
-
-		for (int k = 0; k < r; k++)
+		int score = 0;
+		// b[2][3]についての直大の得点
+		for (int i = 0; i < 2; i++)
 		{
-			numerator[k] = n - r + k + 1;
-			denominator[k] = k + 1;
-		}
-
-		for (int p = 2; p <= r; p++)
-		{
-			int pivot = denominator[p - 1];
-			if (pivot > 1)
+			for (int j = 0; j < 3; j++)
 			{
-				int offset = (n - r) % p;
-				for (int k = p - 1; k < r; k += p)
-				{
-					numerator[k - offset] /= pivot;
-					denominator[k] /= pivot;
-				}
+				if (A[i, j] == A[i + 1, j]) score += b[i, j];
 			}
 		}
-		long result = 1;
-		for (int k = 0; k < r; k++)
+		// c[3][2]についての直大の得点
+		for (int i = 0; i < 3; i++)
 		{
-			if (numerator[k] > 1) result *= numerator[k];
+			for (int j = 0; j < 2; j++)
+			{
+				if (A[i, j] == A[i, j + 1]) score += c[i, j];
+			}
 		}
-
-		return result;
+		return score;
 	}
 }
 

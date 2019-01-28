@@ -58,6 +58,7 @@
     <Compile Include="FirstAnt\TheLongestDistance.cs" />
     <Compile Include="FirstAnt\Tokyo.cs" />
     <Compile Include="FirstAnt\TrumpSort.cs" />
+    <Compile Include="FirstAnt\TwinsBattle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tutorial\ABC_A.cs" />
