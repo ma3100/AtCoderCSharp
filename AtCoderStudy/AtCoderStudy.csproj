@@ -49,6 +49,7 @@
     <Compile Include="FirstAnt\DivisionNumber.cs" />
     <Compile Include="FirstAnt\DubiousDocument2.cs" />
     <Compile Include="FirstAnt\Factorization.cs" />
+    <Compile Include="FirstAnt\Iwi.cs" />
     <Compile Include="FirstAnt\Knapsack.cs" />
     <Compile Include="FirstAnt\ManyFormulas.cs" />
     <Compile Include="FirstAnt\MultipleGift.cs" />
