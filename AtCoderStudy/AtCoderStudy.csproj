@@ -45,6 +45,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="2月\Frog1.cs" />
     <Compile Include="FirstAnt\DepthFirstSearch.cs" />
     <Compile Include="FirstAnt\DivisionNumber.cs" />
     <Compile Include="FirstAnt\DubiousDocument2.cs" />
@@ -77,8 +78,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="2月\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
