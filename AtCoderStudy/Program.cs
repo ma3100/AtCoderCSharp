@@ -6,7 +6,11 @@ class Program
 {
 	public static void Main(string[] args)
 	{
-		var N = int.Parse(Console.ReadLine());
+		// スペース区切りの整数の入力
+		var inputCondition = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+
+		var N = inputCondition[0];
+		var K = inputCondition[1];
 		var answer = new int[N];
 
 		// 配列を初期化
@@ -20,18 +24,23 @@ class Program
 
 		// Startは0
 		answer[0] = 0;
-		// 二番目のコスト。
-		answer[1] = Math.Abs(input[1] - input[0]);
-
-		for (int i = 2; i < N; i++)
+		for (int i = 1; i < K; i++)
 		{
-			var a = answer[i - 1] + Math.Abs(input[i] - input[i - 1]);
-			var b = answer[i - 2] + Math.Abs(input[i] - input[i - 2]);
+			if (i >= N)
+				break;
+			// 一回のジャンプで飛べるコスト。
+			answer[i] = Math.Abs(input[i] - input[0]);
+		}
 
-			if (a > b)
-				answer[i] = b;
-			else
-				answer[i] = a;
+
+		for (int i = K; i < N; i++)
+		{
+			for (int x = 1; x <= K; x++)
+			{
+				var value = answer[i - x] + Math.Abs(input[i] - input[i - x]);
+				if (answer[i] > value)
+					answer[i] = value;
+			}
 		}
 		Console.WriteLine(answer[N - 1]);
 
