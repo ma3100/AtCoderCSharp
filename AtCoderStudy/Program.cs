@@ -6,44 +6,34 @@ class Program
 {
 	public static void Main(string[] args)
 	{
-		// スペース区切りの整数の入力
-		var inputCondition = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+		// 何日分の予定があるか
+		var N = int.Parse(Console.ReadLine());
+		var answer = 0;
+		var beforeIndex = -1;
 
-		var N = inputCondition[0];
-		var K = inputCondition[1];
-		var answer = new int[N];
-
-		// 配列を初期化
 		for (int i = 0; i < N; i++)
 		{
-			answer[i] = 100000;
-		}
-
-		// スペース区切りの整数の入力
-		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-
-		// Startは0
-		answer[0] = 0;
-		for (int i = 1; i < K; i++)
-		{
-			if (i >= N)
-				break;
-			// 一回のジャンプで飛べるコスト。
-			answer[i] = Math.Abs(input[i] - input[0]);
-		}
-
-
-		for (int i = K; i < N; i++)
-		{
-			for (int x = 1; x <= K; x++)
+			// スペース区切りの整数の入力
+			var inputVacation = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+			var max = 0;
+			var index = 0;
+			for (int x = 0; x < inputVacation.Length; x++)
 			{
-				var value = answer[i - x] + Math.Abs(input[i] - input[i - x]);
-				if (answer[i] > value)
-					answer[i] = value;
+				if (beforeIndex != x)
+				{
+					if (max < inputVacation[x])
+					{
+						max = inputVacation[x];
+						index = x;
+					}
+				}
 			}
-		}
-		Console.WriteLine(answer[N - 1]);
 
+			answer += max;
+			beforeIndex = index;
+		}
+
+		Console.WriteLine(answer);
 	}
 
 }
