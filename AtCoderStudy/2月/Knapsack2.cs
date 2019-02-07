@@ -14,7 +14,7 @@ namespace AtCoderStudy._2月
 			long[] value = new long[100];
 
 			// DPテーブル
-			long[,] dp = new long[100, 10000];
+			long[,] dp = new long[10, 10];
 
 			// スペース区切りの整数の入力
 			var inputCondition = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
@@ -22,11 +22,11 @@ namespace AtCoderStudy._2月
 			var W = inputCondition[1];
 
 			// dpを全て大きな値で初期化
-			for (int i = 0; i < 100; ++i)
+			for (int i = 0; i < 10; ++i)
 			{
-				for (int j = 0; j < 10000; ++j)
+				for (int j = 0; j < 10; ++j)
 				{
-					dp[i,j] = 1000000000;
+					dp[i, j] = 1000000000;
 				}
 			}
 
@@ -37,6 +37,9 @@ namespace AtCoderStudy._2月
 				weight[i] = inputWeightAndValue[0];
 				value[i] = inputWeightAndValue[1];
 			}
+
+			// 初期条件
+			dp[0, 0] = 0;
 
 			// DPループ
 			for (int i = 0; i < N; ++i)
@@ -59,7 +62,6 @@ namespace AtCoderStudy._2月
 					}
 				}
 			}
-
 			Console.WriteLine(dp[N, W]);
 		}
 
