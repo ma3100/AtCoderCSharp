@@ -7,33 +7,58 @@ class Program
 	public static void Main(string[] args)
 	{
 		var N = int.Parse(Console.ReadLine());
-		var answer = new int[N];
+		// 結果を格納する配列
+		int[] answer = new int[N + 1];
 
-		// 配列を初期化
-		for (int i = 0; i < N; i++)
+		// 引き出せるお金の種類リスト
+		List<int> x = new List<int>();
+
+		// 1
+		int z = 1;
+		x.Add(z);
+
+		// 6の乗数
+		while (true)
 		{
-			answer[i] = 100000;
+			z *= 6;
+			if (z > N) break;
+			x.Add(z);
 		}
 
-		// スペース区切りの整数の入力
-		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-		// 初期値の設定
-		answer[0] = 0;
-		answer[1] = Math.Abs(input[1] - input[0]);
-
-		for (int i = 2; i < N; i++)
+		// 9の乗数
+		z = 1;
+		while (true)
 		{
-			var beforeOne = answer[i - 1] + Math.Abs(input[i] - input[i - 1]);
-			var beforeTwo = answer[i - 2] + Math.Abs(input[i] - input[i - 2]);
-
-			// 小さい方を詰める
-			answer[i] = beforeOne < beforeTwo
-				? beforeOne
-				: beforeTwo;
+			z *= 9;
+			if (z > N) break;
+			x.Add(z);
 		}
 
-		// 回答出力
-		Console.WriteLine(answer[N - 1]);
+
+		int counter = 1;
+		List<int> current = new List<int>();
+		current.Add(0);
+
+		// 探したい数字に回数が入力されるまで回す
+		while (answer[N] == 0)
+		{
+			List<int> next = new List<int>();
+			foreach (int n in current)
+			{
+				foreach (int m in x)
+				{
+					if (n + m > N) continue;
+					if (answer[n + m] == 0)
+					{
+						answer[n + m] = counter;
+						next.Add(n + m);
+					}
+				}
+			}
+			counter++;
+			current = next;
+		}
+		Console.WriteLine(answer[N]);
 	}
 
 }
