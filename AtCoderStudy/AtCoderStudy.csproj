@@ -50,6 +50,8 @@
     <Compile Include="2月\Frog1.cs" />
     <Compile Include="2月\Knapsack1.cs" />
     <Compile Include="2月\Knapsack2.cs" />
+    <Compile Include="2月\LCS.cs" />
+    <Compile Include="2月\LongestPath.cs" />
     <Compile Include="2月\StrangeBank.cs" />
     <Compile Include="2月\Vacation.cs" />
     <Compile Include="FirstAnt\DepthFirstSearch.cs" />

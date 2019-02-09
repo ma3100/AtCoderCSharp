@@ -4,61 +4,52 @@ using System.Linq;
 
 class Program
 {
-	public static void Main(string[] args)
+	static int[] h;
+	static List<int>[] li;
+
+	public static void Main(String[] args)
 	{
-		var N = int.Parse(Console.ReadLine());
-		// 結果を格納する配列
-		int[] answer = new int[N + 1];
+		// スペース区切りの整数の入力
+		var inputCondition = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
 
-		// 引き出せるお金の種類リスト
-		List<int> x = new List<int>();
+		var n = inputCondition[0];
+		var m = inputCondition[1];
 
-		// 1
-		int z = 1;
-		x.Add(z);
-
-		// 6の乗数
-		while (true)
+		h = new int[n + 1];
+		li = new List<int>[n + 1];
+		// 初期化
+		for (int i = 1; i <= n; i++)
 		{
-			z *= 6;
-			if (z > N) break;
-			x.Add(z);
+			li[i] = new List<int>();
+			h[i] = -1;
 		}
 
-		// 9の乗数
-		z = 1;
-		while (true)
+		// 繋がっているノードを取得
+		for (int i = 0; i < m; i++)
 		{
-			z *= 9;
-			if (z > N) break;
-			x.Add(z);
+			int[] q = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+			li[q[0]].Add(q[1]);
 		}
-
-
-		int counter = 1;
-		List<int> current = new List<int>();
-		current.Add(0);
-
-		// 探したい数字に回数が入力されるまで回す
-		while (answer[N] == 0)
+		int ans = 0;
+		for (int i = 1; i <= n; i++)
 		{
-			List<int> next = new List<int>();
-			foreach (int n in current)
+			ans = Math.Max(fu(i), ans);
+		}
+		Console.WriteLine(ans);
+	}
+	static int fu(int a)
+	{
+		if (h[a] != -1) { return h[a]; }
+		int p = 0;
+		for (int i = 0; i < li[a].Count; i++)
+		{
+			if (h[li[a][i]] == -1)
 			{
-				foreach (int m in x)
-				{
-					if (n + m > N) continue;
-					if (answer[n + m] == 0)
-					{
-						answer[n + m] = counter;
-						next.Add(n + m);
-					}
-				}
+				h[li[a][i]] = fu(li[a][i]);
 			}
-			counter++;
-			current = next;
+			p = Math.Max(h[li[a][i]] + 1, p);
 		}
-		Console.WriteLine(answer[N]);
+		return p;
 	}
 
 }
