@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="2月\ABD.cs" />
+    <Compile Include="2月\CollatzProblem.cs" />
     <Compile Include="2月\FivePillar.cs" />
     <Compile Include="2月\Frog2.cs" />
     <Compile Include="2月\Frog1.cs" />
