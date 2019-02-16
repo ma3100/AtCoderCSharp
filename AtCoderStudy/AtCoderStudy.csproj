@@ -47,13 +47,16 @@
   <ItemGroup>
     <Compile Include="2月\ABD.cs" />
     <Compile Include="2月\CollatzProblem.cs" />
+    <Compile Include="2月\Divisor.cs" />
     <Compile Include="2月\FivePillar.cs" />
+    <Compile Include="2月\FoodsLovedbyEveryone.cs" />
     <Compile Include="2月\Frog2.cs" />
     <Compile Include="2月\Frog1.cs" />
     <Compile Include="2月\Knapsack1.cs" />
     <Compile Include="2月\Knapsack2.cs" />
     <Compile Include="2月\LCS.cs" />
     <Compile Include="2月\LongestPath.cs" />
+    <Compile Include="2月\MonstersBattleRoyale.cs" />
     <Compile Include="2月\RightTriangle.cs" />
     <Compile Include="2月\StoneMonument.cs" />
     <Compile Include="2月\StrangeBank.cs" />

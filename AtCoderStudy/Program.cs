@@ -6,35 +6,38 @@ class Program
 {
 	public static void Main(String[] args)
 	{
-		var s = int.Parse(Console.ReadLine());
-		var flag = true;
-		var count = 2;
-		var value = s;
-		var valueArray = new int[1000000000];
+		var N = int.Parse(Console.ReadLine());
+		// スペース区切りの整数の入力
+		var input = Console.ReadLine().Split(' ').Select(int.Parse).OrderBy(x => x).ToArray();
 
-		while (flag)
+		var min = input[0];
+		for (int i = 1; i < N; i++)
 		{
-			// 偶数の時
-			if (value % 2 == 0)
+			var value = input[i] % input[0];
+			if (value != 0)
 			{
-				value = value / 2;
-			}
-			// 奇数の時
-			else
-			{
-				value = value * 3 + 1;
-			}
-
-			if (valueArray[value] != 0)
-				flag = false;
-			else
-			{
-				valueArray[value] = 1;
-				count++;
+				if (min > value)
+					min = value;
 			}
 		}
 
-		Console.WriteLine(count);
+		var flag = true;
+		var targetValue = input[0];
+		while (flag)
+		{
+			var value = targetValue % min;
+			if (value == 0)
+			{
+				flag = false;
+			}
+			else
+			{
+				targetValue = min;
+				min = value;
+			}
+		}
+
+		Console.WriteLine(min);
 	}
 }
 
