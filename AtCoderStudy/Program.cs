@@ -1,43 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BI = System.Numerics.BigInteger;
 
 class Program
 {
 	public static void Main(String[] args)
 	{
-		var N = int.Parse(Console.ReadLine());
+		int N, M;
+		int[] A;
+
 		// スペース区切りの整数の入力
-		var input = Console.ReadLine().Split(' ').Select(int.Parse).OrderBy(x => x).ToArray();
+		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+		N = input[0];
+		M = input[1];
+		A = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
 
-		var min = input[0];
-		for (int i = 1; i < N; i++)
+		int[] C = new int[] { 0, 2, 5, 5, 4, 5, 6, 3, 7, 6 };
+		BI[] dp = new BI[N + 1];
+		for (int i = 0; i < N; i++)
 		{
-			var value = input[i] % input[0];
-			if (value != 0)
+			if (i != 0 && dp[i] == 0) continue;
+			for (int j = 0; j < A.Length; j++)
 			{
-				if (min > value)
-					min = value;
+				if (C[A[j]] + i > N) continue;
+				// 既に置かれていた数字に対し10倍をする。
+				var nv = dp[i] * 10 + A[j];
+				if (nv > dp[i + C[A[j]]])
+				{
+					dp[i + C[A[j]]] = nv;
+				}
 			}
 		}
 
-		var flag = true;
-		var targetValue = input[0];
-		while (flag)
-		{
-			var value = targetValue % min;
-			if (value == 0)
-			{
-				flag = false;
-			}
-			else
-			{
-				targetValue = min;
-				min = value;
-			}
-		}
-
-		Console.WriteLine(min);
+		Console.WriteLine(dp[N]);
 	}
 }
 

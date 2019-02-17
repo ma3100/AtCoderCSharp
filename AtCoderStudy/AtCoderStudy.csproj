@@ -36,6 +36,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +57,7 @@
     <Compile Include="2月\Knapsack2.cs" />
     <Compile Include="2月\LCS.cs" />
     <Compile Include="2月\LongestPath.cs" />
+    <Compile Include="2月\MatchMatching.cs" />
     <Compile Include="2月\MonstersBattleRoyale.cs" />
     <Compile Include="2月\RightTriangle.cs" />
     <Compile Include="2月\StoneMonument.cs" />
