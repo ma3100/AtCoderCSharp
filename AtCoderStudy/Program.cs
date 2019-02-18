@@ -7,33 +7,47 @@ class Program
 {
 	public static void Main(String[] args)
 	{
-		int N, M;
-		int[] A;
-
-		// スペース区切りの整数の入力
 		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-		N = input[0];
-		M = input[1];
-		A = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-
-		int[] C = new int[] { 0, 2, 5, 5, 4, 5, 6, 3, 7, 6 };
-		BI[] dp = new BI[N + 1];
+		var N = input[0];
+		var K = input[1];
+		var sushi = new List<int[]>();
 		for (int i = 0; i < N; i++)
 		{
-			if (i != 0 && dp[i] == 0) continue;
-			for (int j = 0; j < A.Length; j++)
-			{
-				if (C[A[j]] + i > N) continue;
-				// 既に置かれていた数字に対し10倍をする。
-				var nv = dp[i] * 10 + A[j];
-				if (nv > dp[i + C[A[j]]])
-				{
-					dp[i + C[A[j]]] = nv;
-				}
-			}
+			input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+			sushi.Add(new int[] { input[0], input[1] });
+		}
+		sushi = sushi.OrderBy(s => s[0]).ThenByDescending(s => s[1]).ToList();
+		for (int i = N - 1; i > 0; i--)
+		{
+			if (sushi[i][0] == sushi[i - 1][0]) sushi[i][0] = 0;
+			else sushi[i][0] = 1;
+		}
+		sushi[0][0] = 1;
+		sushi = sushi.OrderByDescending(s => s[1]).ThenByDescending(s => s[0]).ToList();
+		var t = 0L;
+		var d = 0L;
+		var sta = new Stack<long>();
+		for (int i = 0; i < K; i++)
+		{
+			t += sushi[i][0];
+			d += sushi[i][1];
+			if (sushi[i][0] == 0) sta.Push(sushi[i][1]);
+		}
+		var ans = t * t + d;
+		for (int i = K; i < N; i++)
+		{
+			if (sushi[i][0] == 0) continue;
+			else if (!sta.Any()) break;
+			t += sushi[i][0];
+			d += sushi[i][1];
+			var s = sta.Pop();
+			d -= s;
+			var chk = t * t + d;
+			if (ans < chk) ans = chk;
 		}
 
-		Console.WriteLine(dp[N]);
+		Console.WriteLine(ans);
+		Console.ReadLine();
 	}
 }
 
