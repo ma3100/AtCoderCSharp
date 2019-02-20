@@ -7,16 +7,21 @@ class Program
 {
 	public static void Main(String[] args)
 	{
-		// スペース区切りの整数の入力
-		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+		var inputList = new List<int>();
 
-		var N = input[0];
-		var K = input[1];
+		for (int i = 0; i < 3; i++)
+		{
+			// スペース区切りの整数の入力
+			var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+			inputList.Add(input[0]);
+			inputList.Add(input[1]);
+		}
 
-		if (N >= (2 * K - 1))
-			Console.WriteLine("YES");
-		else
+		var resultGroup = inputList.GroupBy(x => x).Select(x => new { x.Key, Count = x.Count() });
+		if (resultGroup.Any(x => x.Count == 3))
 			Console.WriteLine("NO");
+		else
+			Console.WriteLine("YES");
 	}
 }
 

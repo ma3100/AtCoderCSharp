@@ -60,6 +60,7 @@
     <Compile Include="2月\LongestPath.cs" />
     <Compile Include="2月\MatchMatching.cs" />
     <Compile Include="2月\MonstersBattleRoyale.cs" />
+    <Compile Include="2月\Path.cs" />
     <Compile Include="2月\RightTriangle.cs" />
     <Compile Include="2月\StoneMonument.cs" />
     <Compile Include="2月\StrangeBank.cs" />
