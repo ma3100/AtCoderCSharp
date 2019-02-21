@@ -7,21 +7,26 @@ class Program
 {
 	public static void Main(String[] args)
 	{
-		var inputList = new List<int>();
+		// スペース区切りの整数の入力
+		var input = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
+		long K = input[0];
+		long A = input[1];
+		long B = input[2];
 
-		for (int i = 0; i < 3; i++)
+		long money = 0;
+		long bisketNum = 1;
+		if (A + 1 >= B)
+			bisketNum += K;
+		else
 		{
-			// スペース区切りの整数の入力
-			var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-			inputList.Add(input[0]);
-			inputList.Add(input[1]);
+			long changeTarget = K - A + 1;
+			long changeNum = changeTarget / 2;
+			long other = changeTarget % 2;
+
+			bisketNum = changeNum * B + other;
 		}
 
-		var resultGroup = inputList.GroupBy(x => x).Select(x => new { x.Key, Count = x.Count() });
-		if (resultGroup.Any(x => x.Count == 3))
-			Console.WriteLine("NO");
-		else
-			Console.WriteLine("YES");
+		Console.WriteLine(bisketNum);
 	}
 }
 

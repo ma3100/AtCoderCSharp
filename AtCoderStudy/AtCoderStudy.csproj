@@ -66,6 +66,7 @@
     <Compile Include="2月\StrangeBank.cs" />
     <Compile Include="2月\Vacation.cs" />
     <Compile Include="2月\VariousSushi.cs" />
+    <Compile Include="2月\WhenIhitmypocket.cs" />
     <Compile Include="FirstAnt\DepthFirstSearch.cs" />
     <Compile Include="FirstAnt\DivisionNumber.cs" />
     <Compile Include="FirstAnt\DubiousDocument2.cs" />
