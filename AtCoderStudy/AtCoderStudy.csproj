@@ -50,6 +50,7 @@
     <Compile Include="2月\AntiAdjacency.cs" />
     <Compile Include="2月\CollatzProblem.cs" />
     <Compile Include="2月\Divisor.cs" />
+    <Compile Include="2月\Ears.cs" />
     <Compile Include="2月\FivePillar.cs" />
     <Compile Include="2月\FoodsLovedbyEveryone.cs" />
     <Compile Include="2月\Frog2.cs" />

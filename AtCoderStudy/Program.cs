@@ -7,26 +7,47 @@ class Program
 {
 	public static void Main(String[] args)
 	{
-		// スペース区切りの整数の入力
-		var input = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
-		long K = input[0];
-		long A = input[1];
-		long B = input[2];
-
-		long money = 0;
-		long bisketNum = 1;
-		if (A + 1 >= B)
-			bisketNum += K;
+		var L = Int32.Parse(Console.ReadLine());
+		var A = new List<long>();
+		for (int i = 0; i < L; ++i)
+		{
+			A.Add(Int64.Parse(Console.ReadLine()));
+		}
+		var dp = new long[L, 5];
+		for (int i = 0; i < L; ++i)
+		{
+			var num = A[i] % 2;
+			var even = A[i] == 0 ? 2 : num == 0 ? 0 : 1;
+			var odd = A[i] == 0 ? 1 : num == 0 ? 1 : 0;
+			var value = GetValue(dp, i, 0);
+			dp[i, 0] = A[i] + value;
+			value = GetValue(dp, i, 1, value);
+			dp[i, 1] = even + value;
+			value = GetValue(dp, i, 2, value);
+			dp[i, 2] = odd + value;
+			value = GetValue(dp, i, 3, value);
+			dp[i, 3] = even + value;
+			value = GetValue(dp, i, 4, value);
+			dp[i, 4] = A[i] + value;
+		}
+		var ans = Math.Min(dp[L - 1, 0],
+				  Math.Min(dp[L - 1, 1],
+				  Math.Min(dp[L - 1, 2],
+				  Math.Min(dp[L - 1, 3], dp[L - 1, 4]))));
+		Console.WriteLine(ans);
+	}
+	static long GetValue(long[,] dp, long num, int section, long value = long.MaxValue)
+	{
+		if (num == 0) return 0;
 		else
 		{
-			long changeTarget = K - A + 1;
-			long changeNum = changeTarget / 2;
-			long other = changeTarget % 2;
-
-			bisketNum = changeNum * B + other;
+			switch (section)
+			{
+				case 0: return dp[num - 1, section];
+				default: return Math.Min(value, dp[num - 1, section]);
+			}
 		}
-
-		Console.WriteLine(bisketNum);
 	}
 }
+
 
