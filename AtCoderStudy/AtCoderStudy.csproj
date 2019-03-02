@@ -67,6 +67,7 @@
     <Compile Include="2月\RightTriangle.cs" />
     <Compile Include="2月\StoneMonument.cs" />
     <Compile Include="2月\StrangeBank.cs" />
+    <Compile Include="2月\SyntheticKadomatsu.cs" />
     <Compile Include="2月\Vacation.cs" />
     <Compile Include="2月\VariousSushi.cs" />
     <Compile Include="2月\WhenIhitmypocket.cs" />
