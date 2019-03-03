@@ -10,36 +10,39 @@ public class Program
 
 	public static void Main(string[] args)
 	{
-		var s = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-		N = s[0];
-		A = s[1];
-		B = s[2];
-		C = s[3];
+		// スペース区切りの整数の入力
+		var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
 
-		l = new int[N];
 
-		for (var i = 0; i < N; i++)
+		var A = input[0] ;
+		var B = input[1] ;
+		var K = input[2];
+
+		var answer = 0;
+		var flag = true;
+		var counter = 0;
+		while (flag)
 		{
-			l[i] = int.Parse(Console.ReadLine());
+			answer++;
+			var aAnswer = A % answer;
+			var bAnswer = B % answer;
+			if(aAnswer != 0)
+			{
+				aAnswer = answer % aAnswer;
+			}
+			if(bAnswer != 0)
+			{
+				bAnswer = answer % bAnswer;
+			}
+
+			if (aAnswer == 0 & bAnswer == 0)
+			{
+				counter++;
+				if (counter == K)
+					flag = false;
+			}
 		}
 
-		Console.WriteLine(Calc(0, 0, 0, 0));
+		Console.WriteLine(answer);
 	}
-
-	static int Calc(int cnt, int a, int b, int c)
-	{
-		if (cnt == N)
-		{
-			return a == 0 || b == 0 || c == 0 ? 1000000 : Math.Abs(A - a) + Math.Abs(B - b) + Math.Abs(C - c) - 30;
-		}
-
-		var pattern = new int[4];
-		pattern[0] = Calc(cnt + 1, a, b, c);
-		pattern[1] = Calc(cnt + 1, a + l[cnt], b, c) + 10;
-		pattern[2] = Calc(cnt + 1, a, b + l[cnt], c) + 10;
-		pattern[3] = Calc(cnt + 1, a, b, c + l[cnt]) + 10;
-
-		return pattern.Min();
-	}
-
 }
