@@ -18,23 +18,14 @@ public class Program
 		var B = input[1] ;
 		var K = input[2];
 
-		var answer = 0;
+		var answer =101;
 		var flag = true;
 		var counter = 0;
 		while (flag)
 		{
-			answer++;
+			answer--;
 			var aAnswer = A % answer;
 			var bAnswer = B % answer;
-			if(aAnswer != 0)
-			{
-				aAnswer = answer % aAnswer;
-			}
-			if(bAnswer != 0)
-			{
-				bAnswer = answer % bAnswer;
-			}
-
 			if (aAnswer == 0 & bAnswer == 0)
 			{
 				counter++;
@@ -42,7 +33,6 @@ public class Program
 					flag = false;
 			}
 		}
-
 		Console.WriteLine(answer);
 	}
 }
