@@ -71,8 +71,12 @@
     <Compile Include="2月\Vacation.cs" />
     <Compile Include="2月\VariousSushi.cs" />
     <Compile Include="2月\WhenIhitmypocket.cs" />
+    <Compile Include="3月\Canyousolvethis.cs" />
+    <Compile Include="3月\EnergyDrinkCollector.cs" />
     <Compile Include="3月\FavoriteSound.cs" />
     <Compile Include="3月\KthCommonDivisor.cs" />
+    <Compile Include="3月\WhiteCells.cs" />
+    <Compile Include="3月\XORWorld.cs" />
     <Compile Include="FirstAnt\DepthFirstSearch.cs" />
     <Compile Include="FirstAnt\DivisionNumber.cs" />
     <Compile Include="FirstAnt\DubiousDocument2.cs" />
