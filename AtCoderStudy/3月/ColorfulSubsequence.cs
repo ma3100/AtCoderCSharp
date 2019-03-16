@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class Program
+namespace AtCoderStudy._3月
 {
-
-	static void Main(string[] args)
+	public class ColorfulSubsequence
 	{
-		// スペース区切りの整数の入力
-		var N = int.Parse(Console.ReadLine());
-		var S = Console.ReadLine();
-
-		var answer = 0;
-		for(int num =1; num <= N; num++)
+		public void Do()
 		{
-			var combinations = Combination.Enumerate(S.ToArray(), num, withRepetition: false);
-			//var result = combinations.Select(x => new String(x)).ToList().Distinct();
-			var result = combinations.Where(x => x.All(y => x.Count(z => z == y) == 1)).ToList();
-			answer += result.Count();
-		}
-		Console.WriteLine(answer);
+			// スペース区切りの整数の入力
+			var N = int.Parse(Console.ReadLine());
+			var S = Console.ReadLine();
 
+			var answer = 0;
+			for (int num = 1; num <= N; num++)
+			{
+				var combinations = Combination.Enumerate(S.ToArray(), num, withRepetition: false);
+				var result = combinations.Select(x => new String(x)).ToList().Distinct();
+				answer += result.Count();
+			}
+			Console.WriteLine(answer);
+		}
 	}
 
 	public static class Combination
@@ -48,5 +50,4 @@ public class Program
 			}
 		}
 	}
-
 }
