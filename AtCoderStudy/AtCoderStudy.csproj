@@ -76,6 +76,7 @@
     <Compile Include="3月\EnergyDrinkCollector.cs" />
     <Compile Include="3月\FavoriteSound.cs" />
     <Compile Include="3月\KthCommonDivisor.cs" />
+    <Compile Include="3月\Reversi.cs" />
     <Compile Include="3月\WhiteCells.cs" />
     <Compile Include="3月\XORWorld.cs" />
     <Compile Include="FirstAnt\DepthFirstSearch.cs" />
