@@ -4,36 +4,90 @@ using System.Linq;
 
 public class Program
 {
+	public class Point
+	{
+		public int start { get; set; }
+		public int end { get; set; }
+	}
 
 	static void Main(string[] args)
 	{
-		// 文字の入力
+		var array = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
 		var S = Console.ReadLine();
-		var answerList = new List<char>() { 'A', 'C', 'G', 'T' };
-		var count = 0;
-		var maxCount = 0;
-		foreach (var c in S)
+		var zeroStartList = new Dictionary<int,Point>();
+		var flag = true;
+		var index = 0;		
+
+		for (int i = 0; i < S.Length; i++)
 		{
-			if (answerList.Any(x => x == c))
+			if (flag)
 			{
-				count++;
+				if (S[i] == '0')
+				{
+					zeroStartList.Add(index,new Point() { start = i});
+					flag = false;
+				}
 			}
 			else
 			{
-				if (maxCount < count)
+				if (S[i] == '1')
 				{
-					maxCount = count;
+					flag = true;
+					zeroStartList[index].end = i;
+					index++;
 				}
-				count = 0;
 			}
 		}
-
-		if (maxCount < count)
+		var retsu = 0;
+		if(zeroStartList.Any() && zeroStartList.Count() > array[1])
 		{
-			maxCount = count;
+			for(int i = 0; i <= zeroStartList.Count() -array[1];i++)
+			{
+				var sakadatiCount = 0;
+				var menjoList = new List<Point>();
+				for(int y = 0;y < array[1];y++)
+				{
+					menjoList.Add(zeroStartList[i + y]);
+				}
+
+				var menjoIndex = 0;
+				var menjoFlag = false;
+				for(int z = 0;z < array[0];z++)
+				{
+					if(S[z] == '1' )
+					{
+						if (menjoFlag)
+						{
+							menjoFlag = false;
+							if(menjoIndex < array[1] -1)
+								menjoIndex++;
+						}
+						sakadatiCount++;
+					}
+					else if (z >= menjoList[menjoIndex].start && z < menjoList[menjoIndex].end)
+					{
+						sakadatiCount++;
+						menjoFlag = true;
+					}
+					else
+					{
+						if (sakadatiCount > retsu)
+						{
+							retsu = sakadatiCount;
+						}
+						sakadatiCount = 0;
+					}
+				}
+				if (sakadatiCount > retsu)
+				{
+					retsu = sakadatiCount;
+				}
+			}
 		}
-
-		Console.WriteLine(maxCount);
+		else
+		{
+			retsu = array[0];
+		}
+		Console.WriteLine(retsu);
 	}
-
 }
