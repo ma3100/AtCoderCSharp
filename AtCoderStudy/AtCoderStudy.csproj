@@ -83,6 +83,7 @@
     <Compile Include="3月\SnuketheWizard.cs" />
     <Compile Include="3月\WhiteCells.cs" />
     <Compile Include="3月\XORWorld.cs" />
+    <Compile Include="4月\BProblem.cs" />
     <Compile Include="4月\Buttons.cs" />
     <Compile Include="4月\ColoringColorfully.cs" />
     <Compile Include="4月\FiveAntennas.cs" />
@@ -90,6 +91,12 @@
     <Compile Include="4月\FiveTransportations.cs" />
     <Compile Include="4月\GreatOceanView.cs" />
     <Compile Include="4月\Handstand.cs" />
+    <Compile Include="4月\OntheWay.cs" />
+    <Compile Include="4月\Stones.cs" />
+    <Compile Include="6月\BallDistribution.cs" />
+    <Compile Include="6月\Bounding.cs" />
+    <Compile Include="6月\EnoughArray.cs" />
+    <Compile Include="6月\PickingUp.cs" />
     <Compile Include="FirstAnt\DepthFirstSearch.cs" />
     <Compile Include="FirstAnt\DivisionNumber.cs" />
     <Compile Include="FirstAnt\DubiousDocument2.cs" />

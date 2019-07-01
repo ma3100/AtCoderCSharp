@@ -8,6 +8,13 @@ namespace AtCoderStudy._4月
 {
 	public class FiveTransportations
 	{
+		public class Point
+		{
+			public int start { get; set; }
+			public int end { get; set; }
+		}
+
+
 		public void Do()
 		{
 			var N = int.Parse(Console.ReadLine());
